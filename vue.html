@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz"
+    crossorigin="anonymous">
+  <title>Lista de tareas</title>
+  <style>
+    .fa-calendar-check, .fa-calendar{
+    cursor: pointer;
+  }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div id="app">
+      <!-- <h2 v-if="message.length > 2">Lista de tareas <span v-text="message"></span></h2>
+      <h1 v-else>Ingresa tu nombre</h1>
+      <input type="text" v-model="message">
+      <button @click="reverse"></button> -->
+
+      <h2>Lista de tareas</h2>
+      <h4 v-if="completedTasks">Tareas completas: {{ completedTasks }} </h4>
+      <h4 v-if="incompletedTasks">Tareas incompletas: {{ incompletedTasks }} </h4>
+      <ul>
+        <li v-for="task in tasks">
+          <span v-text="task.title"></span>
+          <!-- <small v-if="task.completed">Completa</small>
+          <small v-else>Incompleta</small> -->
+          <span @click="task.completed = ! task.completed" v-if="task.completed" class="far fa-calendar-check"></span>
+          <span @click="task.completed = true" v-else class="far fa-calendar"></span>
+        </li>
+        <li @keyup.enter="addTask" class="form-inline">
+          <input v-model="newTask" type="text" class="form-control">
+          <button @click="addTask" class="btn btn-primary">+</button>
+        </li>
+      </ul>
+      <!-- <pre> {{ $data }} </pre> -->
+    </div>
+  </div>
+  <script src="https://unpkg.com/vue"></script>
+  <script>
+    const app = new Vue({
+      el: '#app',
+      data: {
+        newTask: "",
+        message: "",
+        tasks: [
+          { title: "Aprender Js", completed: true },
+          { title: "Aprender Vue.js", completed: true }
+        ]
+      },
+      methods: {
+        addTask: function () { //porque no funciona con arrow function => por el this, no alcanza la instancia//
+          if (this.newTask.length <= 1) return alert('Ingresa una tarea')
+          this.tasks.push({
+            title: this.newTask,
+            completed: false
+          });
+          this.newTask = "";
+        },
+        // reverse : function(){
+        //   this.message = this.message.split('').reverse().join('')
+        // }
+      },
+      computed: {
+        completedTasks: function () {
+          return this.tasks.filter(function (task) {
+            return task.completed;
+          }).length
+        },
+        incompletedTasks: function () {
+          return this.tasks.filter(function (task) {
+            return !task.completed;
+          }).length
+        }
+      }
+    });
+  </script>
+</body>
+
+</html>

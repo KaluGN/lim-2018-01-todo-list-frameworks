@@ -1,4 +1,7 @@
-# To-do list con un framework
+# To-do list con Vue
+
+La siguiente aplicación permitirá a las personas ingresar las actividades que tiene pendientes por hacer. También tiene la posibilidad de marcar las que ya cumplió 
+======================
 
 ## Objetivo
 
